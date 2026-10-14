@@ -48,10 +48,22 @@
   const androidVersions = ['Android 17','Android 16','Android 15','Android 14','Android 13','Android 12','Android 11','Android 10','Android 9 or earlier','Not sure','Not applicable / customised Android'];
   const devices = document.querySelector('#devices');
   const submitBtn = document.querySelector('#submit-button');
+  const readyNote = document.querySelector('#submit-ready-note');
   let sending = false;
   let submitted = false;
   function updateSubmitState() {
-    submitBtn.disabled = sending || submitted || !form.checkValidity();
+    const complete = form.checkValidity();
+    submitBtn.disabled = sending || submitted || !complete;
+    if(readyNote){
+      const message = submitted
+        ? 'Your application has been received.'
+        : sending
+          ? 'Your application is being sent. Please wait.'
+          : complete
+            ? 'All required fields are complete. You can submit your application.'
+            : 'Complete all required fields to enable submission.';
+      if(readyNote.textContent !== message) readyNote.textContent = message;
+    }
   }
   const addButton = document.querySelector('#add-device');
   let nextId = 0;
