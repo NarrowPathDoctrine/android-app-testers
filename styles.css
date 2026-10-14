@@ -14,3 +14,32 @@
 .brand-mark img{display:block;width:100%;height:100%;max-width:100%;max-height:100%;object-fit:contain;vertical-align:top}
 
 @media(max-width:380px){.nav-inner{gap:9px}.brand-name strong{font-size:10px;letter-spacing:.8px}.brand-name small{font-size:5.5px;letter-spacing:1px}.header-cta{font-size:9px;padding:9px 7px}}
+
+/* Submission state and dedicated confirmation page */
+.submit-button:disabled{opacity:.50;background:#647b6c;color:#f6f7f3;cursor:not-allowed;box-shadow:none;transform:none}
+.submit-button:disabled:hover{background:#647b6c;box-shadow:none;transform:none}
+.submit-ready-note{margin:10px 0 0;font-size:11px;line-height:1.6;text-align:center;color:#6d7c70}
+.thanks-page{min-height:100vh;display:flex;flex-direction:column}
+.thanks-main{flex:1;display:flex;align-items:center;justify-content:center;padding:86px 0 100px;background:radial-gradient(ellipse at 85% 0%,#e5e8de 0%,transparent 48%),#f5f6f0}
+.thanks-card{max-width:720px;margin:auto;background:#fffefa;border:1px solid #dfe5dc;border-radius:12px;box-shadow:0 20px 75px #10292012;padding:68px 70px 64px;text-align:center}
+.thanks-check{display:grid;place-items:center;width:76px;height:76px;margin:0 auto 29px;border-radius:50%;background:#e5f2e7;color:#356b49}
+.thanks-check svg{height:35px;width:35px}
+.thanks-card h1{font:normal 51px/1.18 var(--display);letter-spacing:-1.3px;margin:19px 0 21px}
+.thanks-card h1 em{color:#ac814b;font-weight:normal}
+.thanks-card p{font-size:15px;line-height:1.85;color:#637167;margin:0 auto 16px;max-width:535px}
+.thanks-card .thanks-lead{font-weight:750;font-size:17px;color:#213d2f}
+.thanks-note{display:grid;gap:8px;text-align:left;background:#f1f5ef;border:1px solid #e2ebe1;border-radius:7px;padding:22px 25px;margin:32px 0 35px}
+.thanks-note strong{font-size:14px;color:#244632}
+.thanks-note span{font-size:13px;line-height:1.75;color:#63756a}
+.thanks-home{min-width:225px}
+@media(max-width:620px){
+.thanks-main{padding:48px 0 65px}
+.thanks-card{padding:43px 25px 40px}
+.thanks-check{width:64px;height:64px;margin-bottom:24px}
+.thanks-check svg{width:30px;height:30px}
+.thanks-card h1{font-size:38px}
+.thanks-card .thanks-lead{font-size:16px}
+.thanks-card p{font-size:14px}
+.thanks-note{padding:18px;margin:25px 0 28px}
+.thanks-home{width:100%}
+}
