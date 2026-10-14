@@ -103,7 +103,6 @@
     event.preventDefault();clearFeedback();
     if(!form.checkValidity()){form.reportValidity();return;}
     if(!isLive){setFeedback('Preview complete! Your answers have NOT been sent, saved or emailed. The page needs its Formspree connection before applications can be received.','success');return;}
-    if(form.elements.company_website.value){setFeedback('Thank you for your interest.','success');return;}
     submitBtn.disabled=true;submitBtn.firstChild.nodeValue='Sending application ';
     try{
       const response=await fetch(endpoint,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
