@@ -47,6 +47,12 @@
   const types = ['Phone','Tablet','Foldable','Other Android device'];
   const androidVersions = ['Android 17','Android 16','Android 15','Android 14','Android 13','Android 12','Android 11','Android 10','Android 9 or earlier','Not sure','Not applicable / customised Android'];
   const devices = document.querySelector('#devices');
+  const submitBtn = document.querySelector('#submit-button');
+  let sending = false;
+  let submitted = false;
+  function updateSubmitState() {
+    submitBtn.disabled = sending || submitted || !form.checkValidity();
+  }
   const addButton = document.querySelector('#add-device');
   let nextId = 0;
   const maxDevices = 3;
@@ -70,7 +76,7 @@
     const card = document.createElement('div');card.className='device-card';card.dataset.deviceId=String(id);
     const head = document.createElement('div');head.className='device-head';
     const title=document.createElement('strong');title.textContent=id===1?'Primary device':'Additional device';head.append(title);
-    if (id>1) { const remove=document.createElement('button');remove.type='button';remove.className='remove-device';remove.textContent='Remove device';remove.addEventListener('click',()=>{card.remove();refreshAddButton();});head.append(remove); }
+    if (id>1) { const remove=document.createElement('button');remove.type='button';remove.className='remove-device';remove.textContent='Remove device';remove.addEventListener('click',()=>{card.remove();refreshAddButton();updateSubmitState();});head.append(remove); }
     const grid=document.createElement('div');grid.className='device-grid';
     const type=makeField('Device type','device-'+id+'-type','device_'+id+'_type',types,'Select device type',true);
     const brand=makeField('Manufacturer','device-'+id+'-brand','device_'+id+'_manufacturer',Object.keys(catalog),'Select manufacturer',true);
@@ -90,25 +96,52 @@
     };
     const toggleManual=()=>{const isOther=model.select.value==='Other / not listed';manual.hidden=!isOther;mi.required=isOther; if(!isOther)mi.value='';};
     type.select.addEventListener('change',fillModels);brand.select.addEventListener('change',fillModels);model.select.addEventListener('change',toggleManual);
-    grid.append(type.wrapper,brand.wrapper,model.wrapper,version.wrapper);card.append(head,grid,manual);devices.append(card);refreshAddButton();
+    grid.append(type.wrapper,brand.wrapper,model.wrapper,version.wrapper);card.append(head,grid,manual);devices.append(card);refreshAddButton();updateSubmitState();
   }
-  addButton.addEventListener('click',addDevice);addDevice();
-  const submitBtn=document.querySelector('#submit-button');
+  addButton.addEventListener('click',addDevice);
+  addDevice();
+  // React to edits, dropdown changes, consent, added/removed devices, and browser autofill.
+  form.addEventListener('input',updateSubmitState);
+  form.addEventListener('change',updateSubmitState);
+  window.addEventListener('pageshow',updateSubmitState);
+  updateSubmitState();
   const feedback=document.querySelector('#form-feedback');
   const demo=document.querySelector('#demo-notice');
   if(isLive){demo.hidden=true;submitBtn.firstChild.nodeValue='Submit application ';}
   function setFeedback(message,kind){feedback.textContent=message;feedback.className='form-feedback is-'+kind;feedback.focus({preventScroll:false});}
   function clearFeedback(){feedback.textContent='';feedback.className='form-feedback';}
   form.addEventListener('submit',async event=>{
-    event.preventDefault();clearFeedback();
-    if(!form.checkValidity()){form.reportValidity();return;}
-    if(!isLive){setFeedback('Preview complete! Your answers have NOT been sent, saved or emailed. The page needs its Formspree connection before applications can be received.','success');return;}
-    submitBtn.disabled=true;submitBtn.firstChild.nodeValue='Sending application ';
+    event.preventDefault();
+    if(sending || submitted) return;
+    clearFeedback();
+    if(!form.checkValidity()){updateSubmitState();form.reportValidity();return;}
+    if(!isLive){
+      setFeedback('Preview complete. Your answers have not been submitted.','success');
+      return;
+    }
+
+    sending=true;
+    updateSubmitState();
+    submitBtn.firstChild.nodeValue='Sending application ';
     try{
       const response=await fetch(endpoint,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-      if(!response.ok){let message='The application could not be sent. Please try again.';try{const json=await response.json();if(Array.isArray(json.errors)){message=json.errors.map(x=>x.message).filter(Boolean).join(' ')||message;}}catch(_e){}throw new Error(message);}
-      form.reset();devices.replaceChildren();nextId=0;addDevice();setFeedback('Thank you! Your tester application has been submitted. If a suitable testing opportunity becomes available, we may contact you using the email address you provided.','success');
-    }catch(error){setFeedback(error.message||'We could not send your application. Please try again.','error');}
-    finally{submitBtn.disabled=false;submitBtn.firstChild.nodeValue='Submit application ';}
+      if(!response.ok){
+        let message='The application could not be sent. Please try again.';
+        try{
+          const json=await response.json();
+          if(Array.isArray(json.errors)) message=json.errors.map(x=>x.message).filter(Boolean).join(' ')||message;
+        }catch(_e){}
+        throw new Error(message);
+      }
+      // Only show the dedicated confirmation page after Formspree accepts the application.
+      submitted=true;
+      window.location.assign('thank-you.html');
+    }catch(error){
+      if(!submitted) setFeedback(error.message||'We could not send your application. Please try again.','error');
+    }finally{
+      sending=false;
+      if(!submitted) submitBtn.firstChild.nodeValue='Submit application ';
+      updateSubmitState();
+    }
   });
 })();
