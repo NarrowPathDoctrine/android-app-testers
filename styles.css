@@ -43,3 +43,19 @@
 .thanks-note{padding:18px;margin:25px 0 28px}
 .thanks-home{width:100%}
 }
+
+/* Android-specific mock phone: punch-hole selfie camera, status icons and 3-button navigation. */
+.android-phone{padding:7px;border-radius:29px;background:#121a17;border-color:#32423a;box-shadow:20px 35px 55px #07110e88,0 0 0 2px #51645a}
+.android-phone::after{content:"";position:absolute;right:-10px;top:114px;width:3px;height:43px;border-radius:0 2px 2px 0;background:#576d60}
+.android-phone .phone-screen{position:relative;border-radius:21px;padding:8px 13px 14px;background:linear-gradient(160deg,#f9f8f3,#e5ebe5)}
+.android-camera{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:#0d1518;border:2px solid #394940;box-shadow:0 0 0 1px #a6b3a9;z-index:3}
+.android-status-bar{display:flex;justify-content:space-between;align-items:center;height:22px;padding:0 3px;color:#314a3c;font-size:9px;font-weight:800;line-height:1}
+.android-status-icons{display:flex;align-items:center;height:14px}
+.android-phone .screen-greeting{margin-top:27px}
+.android-phone .screen-heading{margin:8px 0 18px}
+.android-phone .screen-feature{margin:8px 0;padding:7px}
+.android-phone .screen-bar{bottom:43px;left:20px;right:20px}
+.android-system-navigation{position:absolute;bottom:13px;left:30px;right:30px;height:16px;display:flex;justify-content:space-around;align-items:center}
+.android-nav-back{width:0;height:0;border-right:8px solid #445d4c;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.android-nav-home{width:12px;height:12px;border:2px solid #445d4c;border-radius:50%}
+.android-nav-recent{width:11px;height:11px;border:2px solid #445d4c;border-radius:2px}
