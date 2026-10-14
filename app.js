@@ -45,7 +45,7 @@
     'Other manufacturer': {}
   };
   const types = ['Phone','Tablet','Foldable','Other Android device'];
-  const androidVersions = ['Android 17','Android 16','Android 15','Android 14','Android 13','Android 12','Android 11','Android 10','Android 9 or earlier','Not sure','Not applicable / customised Android'];
+  const androidVersions = ['Android 17','Android 16','Android 15','Android 14','Android 13','Android 12','Android 11','Android 10','Android 9 or earlier','Not sure','Not applicable / customized Android'];
   const devices = document.querySelector('#devices');
   const submitBtn = document.querySelector('#submit-button');
   const readyNote = document.querySelector('#submit-ready-note');
