@@ -7,8 +7,8 @@
   <meta name="description" content="Register your interest in testing Android applications developed by Narrow Path Doctrine Ministries.">
   <title>Become an App Tester | Narrow Path Doctrine Ministries</title>
   <link rel="stylesheet" href="styles.css?v=header-logo-2">
-  <script src="config.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="config.js?v=20261014-forms1" defer></script>
+  <script src="app.js?v=20261014-forms1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -86,8 +86,8 @@
         </aside>
         <div class="form-card">
           <div class="form-header"><div><span class="form-meta">TESTER REGISTRATION</span><h3>Become a volunteer tester</h3><p>Fields marked <span class="required-indicator">*</span> are required.</p></div><div class="form-mark" aria-hidden="true">✳</div></div>
-          <div id="demo-notice" class="demo-notice" role="note"><strong>Preview mode:</strong> This design is ready to review. Submissions will not be sent until the email form and privacy contact are configured.</div>
-          <form id="tester-form" novalidate>
+          <div id="demo-notice" class="demo-notice" role="note" hidden><strong>Preview mode:</strong> This design is ready to review. Submissions will not be sent until the email form and privacy contact are configured.</div>
+          <form id="tester-form" action="https://formspree.io/f/xyeknaww" method="POST">
             <input type="hidden" name="_subject" value="New Android App Tester Application — Narrow Path Doctrine Ministries">
             <div class="honeypot" aria-hidden="true"><label for="company_website">Leave this field blank</label><input id="company_website" name="company_website" tabindex="-1" autocomplete="off"></div>
             <fieldset class="form-section">
@@ -118,7 +118,7 @@
             </fieldset>
             <div class="privacy-accept"><label class="consent-row"><input type="checkbox" name="contact_consent" value="I agree" required><span>I agree that Narrow Path Doctrine Ministries may use the information in this form to contact me about Android app testing opportunities. <span class="required-indicator">*</span></span></label><p>We won't publish your details. Read our <a href="privacy.html">tester privacy notice</a>.</p></div>
             <div id="form-feedback" class="form-feedback" role="status" aria-live="polite" tabindex="-1"></div>
-            <button class="button submit-button" type="submit" id="submit-button">Preview submission <span aria-hidden="true">→</span></button>
+            <button class="button submit-button" type="submit" id="submit-button">Submit application <span aria-hidden="true">→</span></button>
             <p class="submission-note">Submitting an application does not automatically enrol you in a Google Play testing program.</p>
           </form>
         </div>
